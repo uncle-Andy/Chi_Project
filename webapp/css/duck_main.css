@@ -1,0 +1,29 @@
+#main_content{
+    margin-left: 3%;
+    margin-right: 3%;
+    /*background-color: #9eb6ce;*/
+
+}
+
+body{
+    background-color: white;
+    min-width: 1100px;
+}
+#stock_container{
+    min-height: 500px;
+    border: solid 2px rgb(151,151,151);
+    border-radius: 10px;
+}
+#benchmark_container{
+    min-height: 500px;
+    border: solid 2px rgb(151,151,151);
+    border-radius: 10px;
+}
+/*#stock_list{*/
+    /*float: left;*/
+/*}*/
+.duck_gear_loading{
+    left: 45%;
+    top:45%;
+    position: absolute;
+}

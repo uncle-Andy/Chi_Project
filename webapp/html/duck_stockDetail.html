@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>股票详情</title>
+    <link rel="stylesheet" type="text/css" href="/css/window.css">
+    <!--button-->
+    <link rel="stylesheet" type="text/css" href="/css/buttons.css">
+    <!-- jQuery -->
+    <script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+    <!-- highcharts -->
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="/js/echarts.min.js"></script>
+    <script src="/js/login/get_user.js"></script>
+    <!--for evaluation chart-->
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+
+    <script src="/js/LogStatusControl.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="/js/LogStatusControl.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/navigator.css">
+    <link rel="stylesheet" href="/css/duck_stock_detail.css" type="text/css">
+    <!-- <h1 class="title1">hello this is a test page!</h1> -->
+    <!--tab上的小图标-->
+    <link rel="shortcut icon" href="/image/short_cut.png">
+</head>
+<body style="visibility: hidden;" id="main_hidden">
+<!-- navigator begin -->
+<div id="nav_bar">
+    <img src="/image/duck_icon_pink.png" style="width: 73px;height: 35px;float: left;margin-top:7px;margin-left: 10px">
+    <!--<div style="font-size: 30px;float: left;color: #ffffff;margin-left: 10px;margin-top: 7px;">DUCK</div>-->
+    <ul id="nav_box">
+        <li class="nav_item">
+            <a class="nav_c" href="duck_main.html">
+                <img id= "data_icon" src="/image/data.png">
+                <label class="nav_item_name">数据</label>
+            </a>
+        </li>
+        <li class="nav_item">
+            <a class="nav_c" href="BoardList.html">
+                <img id= "distribute_icon" src="/image/distribute-horizontal-centers.png">
+                <label class="nav_item_name">分布</label>
+            </a>
+        </li>
+        <li class="nav_item">
+            <a class="nav_c" href="duck_optional.html">
+                <img id= "optional_icon" src="/image/optional_stocl.png">
+                <label class="nav_item_name">自选股</label>
+            </a>
+        </li>
+        <li class="nav_item">
+            <a class="nav_c" href="Analyse_input.html">
+                <img id= "regression_test_icon" src="/image/test.png">
+                <label class="nav_item_name">回测系统</label>
+            </a>
+        </li>
+        <li class="nav_item">
+            <a class="nav_c" href="#">
+                <img id= "user_icon" src="/image/user.png">
+                <label class="nav_item_name" id="navigator_user_name">用户</label>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="blank"></div>
+<!-- navigator end -->
+<!--承载所有股票信息内容元素,控制两侧缩进-->
+<div class="main_content light_font" >
+
+    <div id="ohlc_factor_info_div">
+        <div id="main_title">
+            <div id="title_part1">
+                <div id="title_part1_name_open_change" class="light_font">
+                    <div id="title_name"></div>
+                    <div id="title_open">--</div>
+                    <div id="title_changeRate">--</div>
+                </div>
+
+                <div id="title_addBtn_code">
+                    <div id="title_code" class="light_font"></div>
+                    <button id="add_stock_btn" class="button button-rounded button-tiny light_font">加入自选股</button>
+                </div>
+            </div>
+
+            <div id="stock_info_detail" class="light_font">
+                <div id="name_item">
+                    <img class="item_icon" src="/image/inc_name.png" alt="公司名称">
+                    <div id="stock_info_name" class="light_font">公司名称</div>
+                    <div id="name_content"></div>
+                </div>
+
+                <div id="listDate_item">
+                    <img class="item_icon" src="/image/market_date.png" alt="上市日期">
+                    <div id="stock_info_listDate">上市日期</div>
+                    <div id="listDate_content"></div>
+                </div>
+
+                <div id="totalShare_item">
+                    <img class="item_icon" src="/image/amount_of_distribution.png" alt="发行量">
+                    <div id="stock_info_totalShares">总发行量</div>
+                    <div id="totalShare_content"></div>
+                </div>
+
+                <div id="region_item">
+                    <img class="item_icon" src="/image/localtion.png" alt="地址">
+                    <div id="stock_info_region">所属地区</div>
+                    <div id="region_content"></div>
+                </div>
+                <div id="primeOperating_item">
+                    <img class="item_icon" src="/image/main_business.png" alt="主营业务">
+                    <div id="stock_info_primeOperating">主营业务</div>
+                    <div id="primeOperating_content"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="chart1"></div>
+
+        <div id="divider_ohlc_factor">因子走势</div>
+        <select name="factor_type" id="factor_type" style="margin-left:20px;" onchange=selectChange();>
+            <option value="市盈率">市盈率</option>
+            <option value="市净率">市净率</option>
+            <option value="五日换手率">五日换手率</option>
+            <option value="十日换手率">十日换手率</option>
+            <option value="120日换手率">120日换手率</option>
+            <option value="5日均线">5日均线</option>
+            <option value="10日均线">10日均线</option>
+            <option value="60日均线">60日均线</option>
+            <option value="120日均线">120日均线</option>
+            <option value="市销率">市销率</option>
+            <option value="市现率">市现率</option>
+            <option value="心理线指标">心理线指标</option>
+            <option value="分析师推荐评级">分析师推荐评级</option>
+            <option value="分析师推荐评级变化">分析师推荐评级变化</option>
+        </select>
+
+        <div id="factor_chart"></div>
+
+    </div>
+
+
+    <div id="divider_mark">评分</div>
+
+    <div id="score_and_radar">
+            <div id="score">
+                <div id="score_chart" style="height: 300px;"></div>
+                <div id="comment_suggestion"></div>
+                <div id="comment_analysis"></div>
+            </div>
+            <div id="divider_score_radar"></div>
+            <div id="radar">
+                <div id="radar_chart" style="width: 100%;height: 400px"></div>
+                <!--<input id="xinxixishu" type="radio" checked="checked" name="radar_type" value="信息系数" onclick="change_radar_type()">因子系数<br>-->
+                <!--<input id="xinxibi" type="radio" name="radar_type" value="信息比" onclick="change_radar_type()">信息比<br>-->
+            </div>
+    </div>
+
+    <!--<div class="duck_window" id="news_window">-->
+        <!--<div class="duck_title">-->
+            <!--<div class="duck_title_text">相关新闻</div>-->
+        <!--</div>-->
+    <div id="divider_news">相关新闻</div>
+        <div id="news_board">
+            <div class="duck_gear_loading" id="duck_gear_detail_news" style="margin-left: 40%">
+                <img src="/image/duck_gear_backup.gif" alt="running" class="duck_gear_icon">
+                <div class="duck_gear_tips"style="font-family: 'PingFang SC'">新闻加载中..</div>
+            </div>
+        </div>
+    <!--</div>-->
+
+</div>
+
+</body>
+<script>
+
+    function selectChange() {
+        var selection = document.getElementById('factor_type');
+        var index = selection.selectedIndex;
+        var selectedValue = selection.options[index].value;
+        init_factor_chart(selectedValue);
+//        handle_Login();
+    }
+    function change_radar_type() {
+        if(document.getElementById('xinxixishu').checked){
+
+        }else if(document.getElementById('xinxibi')){
+
+        }
+    }
+</script>
+<!-- script -->
+<script>
+    var myRed="#FF0000";
+    var myGreen="#00CD66";
+    var myName;
+    function init_info() {
+//        handle_login_statu();
+        init_factor_chart("市盈率");
+        var code = getCode();
+        var url = "/StockDetail/description/?code=" + getCode();
+
+        $.getJSON(url, function (data) {
+            document.getElementById('title_name').innerHTML = data.name;
+            myName=data.name;
+            document.title="Duck "+myName;
+            document.getElementById('title_code').innerHTML = data.code;
+//            document.getElementById('title_open').innerHTML = data.open;
+
+            var company_name = data.name;
+            var listDate = data.listDate.year+"-"+data.listDate.month+"-"+data.listDate.day;
+            var region = data.officeAddr;
+            var primeOperating = data.primeOperating;
+            var totalShare = (data.totalShares/10000)+" 万股";
+            var close_price = data.close;
+            var changeRate = data.changeRate;
+            document.getElementById('name_content').innerHTML = company_name;
+            document.getElementById('listDate_content').innerHTML = listDate;
+            document.getElementById('region_content').innerHTML = region;
+            document.getElementById('totalShare_content').innerHTML = totalShare;
+            document.getElementById('primeOperating_content').innerHTML = primeOperating;
+            document.getElementById('title_changeRate').innerHTML = (changeRate*100).toFixed(2) + "%";
+            document.getElementById('title_open').innerHTML = close_price;
+            if(changeRate<0){
+                document.getElementById('title_changeRate').style.color = "#339933";
+                document.getElementById('title_open').style.color = "#339933";
+            }
+            if(changeRate>0){
+                document.getElementById('title_changeRate').style.color = "#CC0033";
+                document.getElementById('title_open').style.color = "#CC0033";
+            }
+
+        }, function () {
+            alert("fail");
+        });
+        //确认该股票是否存在自选股中,以确定添加按钮的内容
+        $.ajax({
+            type:'post',
+            url:"/Optional/check",
+            data:{code:getCode()},
+            success:function (data){
+                if(data == true){
+//                    document.getElementById('add_stock_btn').innerHTML = "删除自选股";
+//                    document.getElementById('add_stock_btn').style.backgroundColor = "#990000";
+//                    document.getElementById('add_stock_btn').setAttribute("statu","delete");
+                    set_delete_button();
+                }else if(data==false){
+//                    document.getElementById('add_stock_btn').innerHTML = "加入自选股";
+//                    document.getElementById('add_stock_btn').style.backgroundColor = "#00CC99";
+//                    document.getElementById('add_stock_btn').setAttribute("statu","add");
+                    set_add_button();
+                }else{
+                    alert("自选股存在性验证出错")
+                }
+            },
+            error:function () {
+                alert("请求失败");
+            }
+        });
+        document.getElementById('add_stock_btn').addEventListener('click',function () {
+           handle_Login();
+            if(document.getElementById('add_stock_btn').getAttribute('statu')=='add'){
+//               alert("adddddd");
+               $.ajax({
+                   type:'post',
+                   url :'/Optional/add',
+                   data:{code:getCode()},
+                   success:function () {
+//                       document.getElementById('add_stock_btn').innerHTML = "删除自选股";
+//                       document.getElementById('add_stock_btn').style.backgroundColor = "#990000";
+//                       document.getElementById('add_stock_btn').setAttribute("statu","delete");
+                       set_delete_button();
+                   }
+               });
+           }else if(document.getElementById('add_stock_btn').getAttribute('statu')=='delete'){
+//               alert("deletee");
+               $.ajax({
+                   type:'post',
+                   url :'/Optional/del',
+                   data:{code:getCode()},
+                   success:function () {
+//                       document.getElementById('add_stock_btn').innerHTML = "加入自选股";
+//                       document.getElementById('add_stock_btn').style.backgroundColor = "#00CC99";
+//                       document.getElementById('add_stock_btn').setAttribute("statu","add");
+                       set_add_button();
+                   }
+               });
+           }else{
+               alert("删除按钮状态错误");
+           }
+        });
+    }
+    window.onload = init_info;
+    function set_add_button() {
+        document.getElementById('add_stock_btn').innerHTML = "加入自选股";
+        document.getElementById('add_stock_btn').style.backgroundColor = "#00CC99";
+        document.getElementById('add_stock_btn').setAttribute("statu","add");
+    }
+    function set_delete_button() {
+        document.getElementById('add_stock_btn').innerHTML = "删除自选股";
+        document.getElementById('add_stock_btn').style.backgroundColor = "#990000";
+        document.getElementById('add_stock_btn').setAttribute("statu","delete");
+    }
+</script>
+<script type="text/javascript">
+    function getParam(paras) {
+        var url = location.href;
+        var paraString = url.substring(url.indexOf("?")+1,url.length).split("&");
+        var paraObj = {};
+        for (i=0; j=paraString[i]; i++){
+            paraObj[j.substring(0,j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=")+1,j.length);
+        }
+        var returnValue = paraObj[paras.toLowerCase()];
+        if(typeof(returnValue)=="undefined"){
+            return "";
+        }else{
+            return returnValue;
+        }
+    }
+</script>
+<!-- get OHLC chart -->
+<script type="text/javascript">
+
+    function getCode() {
+        var result = window.location.search;
+        result = result.split('?')[1].split('=')[1];
+        return result;
+    }
+    initOHLC_Chart(getCode());
+    //    alert(getCode());
+    function initOHLC_Chart(code) {
+        $.getJSON('/Stock/getStockDataListByTime/?code='+code+'&start=2013-01-01&end=2015-01-30', function (data) {
+            // split the data set into ohlc and volume
+            document.getElementById('main_hidden').style.visibility = "visible";
+            var ohlc = [],
+                    volume = [],
+                    dataLength = data.length,
+            // set the allowed units for data grouping
+                    groupingUnits = [[
+                        'week',                         // unit name
+                        [1]                             // allowed multiples
+                    ], [
+                        'month',
+                        [1, 2, 3, 4, 6]
+                    ]],
+
+                    i = 0;
+
+            for (i; i < dataLength; i += 1) {
+                ohlc.push([
+                    new Date(data[i].date).getTime(),
+                    data[i].open,
+                    data[i].high,
+                    data[i].low,
+                    data[i].close
+                ]);
+
+                volume.push([
+                    new Date(data[i].date).getTime(),
+                    data[i].turnoverVol
+                ]);
+            }
+
+
+            // create the chart
+            $('#chart1').highcharts('StockChart', {
+                plotOptions: {
+                    candlestick: {
+                        color: "rgb(0,204,153)",
+                        upColor: '#CC0033'
+                    }
+                },
+                tooltip: {
+
+                    xDateFormat:'%Y-%m-%d'
+
+                },
+                credits: {
+                    enabled: false
+                },
+                rangeSelector: {
+                    selected: 0
+                },
+
+                title: {
+                    text: 'k线图'
+                },
+                xAxis:{
+                    crosshair: {color:myRed}
+                },
+                yAxis: [{
+                    crosshair:{color:myRed},
+                    labels: {
+                         step:1,
+                         align: 'right',
+                         x: -3
+                     },
+                     title: {
+                         text: 'k线图'
+                     },
+                    height: '60%',
+                    lineWidth: 2
+                    }, {
+                        labels: {
+                            align: 'right',
+                            x: -3
+                        },
+                        title: {
+                            text: '成交量'
+                        },
+                        top: '65%',
+                        height: '35%',
+                        offset: 0,
+                        lineWidth: 2
+                }],
+
+                    series: [{
+                        type: 'candlestick',
+                        name: 'K线',
+                        data: ohlc,
+                        dataGrouping: {
+                            units: groupingUnits
+                        }
+                    }, {
+                        type: 'column',
+                        name: '成交量',
+                        data: volume,
+                        yAxis: 1,
+                        dataGrouping: {
+                            units: groupingUnits
+                        }
+                    }]
+                });
+        });
+    };
+</script>
+<!-- relationship chart -->
+<!--<script type="text/javascript">-->
+    <!--// 基于准备好的dom，初始化echarts实例-->
+    <!--var myChart = echarts.init(document.getElementById('chart2'));-->
+
+    <!--// 指定图表的配置项和数据-->
+    <!--var option = {-->
+        <!--title: {-->
+            <!--text: 'ECharts 入门示例'-->
+        <!--},-->
+        <!--tooltip: {},-->
+        <!--legend: {-->
+            <!--data:['销量']-->
+        <!--},-->
+        <!--xAxis: {-->
+            <!--data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]-->
+        <!--},-->
+        <!--yAxis: {},-->
+        <!--series: [{-->
+            <!--name: '销量',-->
+            <!--type: 'bar',-->
+            <!--data: [5, 20, 36, 10, 10, 20]-->
+        <!--}]-->
+    <!--};-->
+
+    <!--// 使用刚指定的配置项和数据显示图表。-->
+
+    <!--myChart.setOption(option);-->
+<!--</script>-->
+
+<script type="text/javascript">
+    function init_factor_chart(factor) {
+
+        $.ajax({
+            url: '/StockDetail/getFactorChange',
+            data: {code: getCode(), factor: factor, offset: 30},
+            type: 'get',
+            success: function (data) {
+                var result;
+                var date;
+                var dataset = [];
+                for(var i=0;i<data.length;i++){
+//                    alert(data[i].date.year);
+                    result = data[i].date.year+"-"+data[i].date.month+"-"+data[i].date.day;
+                    date = new Date(result);
+                    dataset.push([date.getTime(),data[i].value]);
+//                    alert(result);
+                }
+                // Create the chart
+                $('#factor_chart').highcharts('StockChart', {
+
+
+                    rangeSelector : {
+                        selected : 1
+                    },
+
+//                    title : {
+//                        text : 'STOCK FACTOR'
+//                    },
+                    yAxis:{
+                        crosshair:{//color:myRed
+                        }
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series : [{
+                        name : '因子值',
+                        data : dataset,
+                        tooltip: {
+                            valueDecimals: 2
+                        }
+                    }]
+                });
+
+            }
+        });
+    }
+
+
+
+
+
+</script>
+<script type="text/javascript">
+    $.ajax({
+        type:'post',
+        url:'/StockDetail/evaluation',
+        data:{code:getCode()},
+        success:function (data) {
+            init_score_chart(data.mark);
+            document.getElementById('comment_suggestion').textContent=data.suggestion;
+            document.getElementById('comment_analysis').textContent = data.analysis;
+        }
+    });
+    function init_score_chart(grade) {
+        var data = [];
+        data.push(grade);
+        var gaugeOptions = {
+
+            chart: {
+                type: 'solidgauge'
+            },
+
+            title: null,
+
+            pane: {
+                center: ['50%', '85%'],
+                size: '140%',
+                startAngle: -90,
+                endAngle: 90,
+                background: {
+
+                    innerRadius: '60%',
+                    outerRadius: '100%',
+                    shape: 'arc'
+                }
+            },
+
+            tooltip: {
+                enabled: false
+            },
+
+            // the value axis
+            yAxis: {
+                stops: [
+                    [0.1, '#55BF3B'], // green
+                    [0.5, '#DDDF0D'], // yellow
+                    [0.9, '#DF5353'] // red
+                ],
+                lineWidth: 0,
+                minorTickInterval: null,
+                tickPixelInterval: 400,
+                tickWidth: 0,
+                title: {
+                    y: -70
+                },
+                labels: {
+                    y: 16
+                }
+            },
+
+            plotOptions: {
+                solidgauge: {
+                    dataLabels: {
+                        y: 5,
+                        borderWidth: 0,
+                        useHTML: true
+                    }
+                }
+            }
+        };
+
+        $('#score_chart').highcharts(Highcharts.merge(gaugeOptions, {
+            yAxis: {
+                min: 0,
+                max: 100
+//                title: {
+//                    text: 'Evaluation'
+//                }
+            },
+
+            credits: {
+                enabled: false
+            },
+
+            series: [{
+                name: 'mark',
+                data: data,
+                dataLabels: {
+                    format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                    '<span style="font-size:12px;color:silver">mark</span></div>'
+                },
+            }]
+
+        }));
+    }
+</script>
+<!-- radar chart -->
+<script type="text/javascript">
+    $.ajax({
+        type:'get',
+        data:{code:getCode(),timeLen:30},
+        url:'/StockDetail/getMostUsefulFactors',
+        success:function (data) {
+            var result = [];
+            var name = [];
+            for(var i=data.length;i>data.length-6;i--) {
+                result.push([data[i-1].name,Math.abs(data[i-1].judgeFactorValue)]);
+                name.push(data[i-1].name);
+            }
+
+//            alert("data complete");
+//            alert("result: "+result);
+//            alert("name: "+name);
+            init_radar(result,name);
+        }
+    });
+    function init_radar(data,name) {
+        $('#radar_chart').highcharts({
+
+            chart: {
+                polar: true,
+                type: 'line'
+            },
+
+            title: {
+                text: '最具价值因子对比',
+                x: -100
+            },
+
+            pane: {
+                size: '80%'
+            },
+
+            xAxis: {
+                categories: name,
+                tickmarkPlacement: 'on',
+                lineWidth: 0
+            },
+
+            yAxis: {
+                gridLineInterpolation: 'polygon',
+                lineWidth: 0,
+                min: 0
+            },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                shared: true,
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y}</b><br/>'
+            },
+
+            legend: {
+                align: 'right',
+                verticalAlign: 'top',
+                y: 70,
+                layout: 'vertical'
+            },
+
+            series: [{
+                name:"因子值",
+                data:data
+            }]
+
+        });
+    }
+</script>
+<script>
+    $.ajax({
+       type:'post',
+       url :'/StockDetail/news',
+       data:{code:getCode()},
+       success:function (data) {
+           var len = data.length;
+           $("#duck_gear_detail_news").remove();
+//           alert(data[0].summary);
+           for(var i=0;i<len;i++){
+                load_news(data[i].title,data[i].publishDate,data[i].summary);
+           }
+       }
+    });
+    function load_news(title,date,summary){
+
+        var news_page = document.createElement("div");
+        news_page.style.minHeight = "140px";
+        news_page.style.marginTop = "20px";
+        news_page.style.width = "1180px";
+        news_page.style.backgroundColor = "aliceblue";
+        news_page.style.border = "solid 1px rgb(151,151,151)";
+        var news_content = document.createElement("div");
+        news_page.appendChild(news_content);
+        news_content.style.margin = "10px";
+        var title_line = document.createElement("div");
+        news_content.appendChild(title_line);
+        title_line.style.height = "50px";
+//        title_line.style.backgroundColor = "chocolate";
+        var news_icon = document.createElement("img");
+        news_icon.src = "/image/news.png";
+        news_icon.style.width = "50px";
+        news_icon.style.float = "left";
+        title_line.appendChild(news_icon);
+        var news_title = document.createElement("div");
+        title_line.appendChild(news_title);
+        news_title.style.marginLeft = "10px";
+        news_title.style.marginTop = "10px";
+        news_title.style.float = "left";
+//        news_title.style.backgroundColor = "blue";
+        news_title.style.fontSize="25px";
+        var title_text = document.createTextNode(title);
+        news_title.appendChild(title_text);
+        var divider_news = document.createElement("div");
+        news_content.appendChild(divider_news);
+        divider_news.style.height="1px";
+        divider_news.style.backgroundColor = "rgb(151,151,151)";
+        var text_content = document.createElement("div");
+        news_content.appendChild(text_content);
+        var news_summary_content = document.createTextNode(summary);
+        text_content.appendChild(news_summary_content);
+        document.getElementById('news_board').appendChild(news_page);
+    }
+
+</script>
+
+
+</html>

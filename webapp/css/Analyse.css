@@ -1,0 +1,301 @@
+#analyseCharts{
+    position: absolute;
+    top:120px;
+    width: 1050px;
+    left:250px;
+    display: block;
+    height: 44px;
+    padding:20px;
+}
+#search_text{
+    border: solid 1px rgb(151,151,151);
+    border-radius: 5px;
+}
+#factor_to_pie_btn{
+    weight:17px;
+}
+#chosen_label{
+    position: absolute;
+    left:200px;
+    top:40px;
+}
+#search_text_chosen{
+    position: absolute;
+    left:250px;
+    top:50px;
+}
+#taxRate_diy{
+    width: 80px;
+}
+#allStocksDiv{
+    border: solid 2px rgb(151,151,151);
+    border-radius: 5px;
+    position: absolute;
+    top:2px;
+    width: 800px;
+    left:180px;
+    display: block;
+    height: 410px;
+}
+#chart1{
+    position: absolute;
+    left:175px;
+    top:20px;
+}
+#chart2{
+    position: absolute;
+    left:600px;
+    top:20px;
+}
+#chart3{
+    position: absolute;
+    left:175px;
+    top:230px;
+}
+#chart4{
+    position: absolute;
+    left:600px;
+    top:230px;
+}
+#diy_input1{
+    position: absolute;
+    left: 5px ;
+    top:120px;
+    width: 410px;
+    color:#fff;
+   /* line-height: 50px;/*行间距*/
+    background-color: rgb(151,151,151);
+    left:10px;
+    display: block;
+    height: 410px;
+    border-radius: 5px 5px 5px 5px;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+}
+.up_line{
+    border-top: solid 1px #ffffff;
+}
+#diy_input2{
+    position: absolute;
+    left: 10px ;
+    top:550px;
+    width: 410px;
+    color:#fff;
+    line-height: 40px;/*行间距*/
+    background-color: rgb(151,151,151);
+    display: block;
+    height: 600px;
+    border-radius: 5px 5px 5px 5px;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+}
+#input1_hint1{
+    z-index: 1;
+    position: absolute;
+    left:165px;
+    top:-5px
+}
+#input1_hint2{
+    z-index: 1;
+    position: absolute;
+    left:290px;
+    top:20px
+}
+#input2_hint1{
+    z-index: 1;
+    position: absolute;
+    left:122px;
+    top:195px
+}
+#input2_hint2{
+    z-index: 1;
+    position: absolute;
+    left:320px;
+    top:195px
+}
+#investweight_title{
+    position: absolute;
+    left:220px;
+    top:205px
+}
+#level_input{
+    position: absolute;
+    left:220px;
+    top:250px
+}
+#pies{
+    border: solid 2px rgb(151,151,151);
+    border-radius: 5px;
+    /*background-color: #000000;*/
+    position: absolute;
+    left: 430px;
+    top:550px;
+    width: 800px;
+    height:500px;
+}
+#pie_factors{
+    /*border: solid 1px #000000;*/
+    position: absolute;
+    left: 0px;
+    width: 400px;
+    height:400px;
+    top:50px;
+}
+#pie_money{
+    /*border: solid 1px #000000;*/
+    position: absolute;
+    left: 400px;
+    width: 400px;
+    height:300px;
+    top:20px;
+}
+#analysebtn_diy{
+   position: absolute;
+    left:200px;
+    top:500px;
+}
+#chosenStockDiv{
+    position: absolute;
+    left:200px;
+    top:67px;
+    width:200px;
+    color:#000000;
+    min-height: 250px;
+    border: solid 2px rgb(151,151,151);
+    border-radius: 10px;
+}
+#helpbtn{/*TODO 想让这个按钮居中*/
+    margin-right: auto;
+    margin-left: auto;
+}
+#analysebtn{
+    width:300px;
+    text-align: center;
+    top:380px;
+    left:20px;
+}
+#input_text{
+    margin-top: 2px;
+    margin-left: 0px;
+    height: 36px;
+    width: 80%;
+    font-size: 23px;
+    border: none;
+    outline: none;
+
+}
+#input_text:focus{
+    box-shadow: #000000;
+}
+
+#input_space{
+    float: right;
+    height: 40px;
+    width: 200px;
+    border-left: solid 2px rgb(151,151,151);
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+#search_icon{
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-left: 3px;
+    margin-top: 5px;
+}
+input{
+    width:70px
+}
+
+/*下面应该是不会改的*/
+#news_window{
+    /*background-color: #5dade2;*/
+    height: 400px;
+    width: 100%;
+    margin-top: 20px;
+    float: left;
+}
+
+li.tab_li{
+    text-decoration: none;
+    list-style: none;
+    float: left;
+    height: 40px;
+    /*width: 70px;*/
+    /*    display: block;*/
+    /*    background-color:aquamarine;*/
+
+}
+#tab_content{
+    margin-top: 10px;
+    /*    background-color: antiquewhite;*/
+    height: 40px;
+    border-radius: 10px;
+    border: solid 2px rgb(151,151,151);
+}
+
+ul.tab_ul{
+    margin-top: 0;
+    /*    background-color: aqua;*/
+    height: 40px;
+    padding-left: 0px;
+}
+li.tab_li:hover{
+    background-color: antiquewhite;
+    cursor:pointer;
+    -webkit-transition: background-color .5s;
+}
+a.tab_item.selected{
+    background-color:rgb(94,94,94);
+    color: aliceblue;
+    -webkit-transition: background-color .5s;
+}
+a.tab_item{
+    -webkit-transition: background-color .5s;
+    text-decoration: none;
+    display: block;
+    height: 40px;
+    /*width: 70px;*/
+    padding:0 20px;
+    text-align: center;
+    float: left;
+    font-family: monospace;
+    font-size: 20px;
+    color: rgb(151,151,151);
+    line-height: 40px;
+}
+a.tab_item:hover{
+    /*    background-color: ;*/
+}
+.left_radium{
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+#first_tab{
+    /*    border-top-left-radius: 10px;*/
+    /*    border-bottom-left-radius: 10px;*/
+    border-right: solid 2px rgb(151,151,151);
+}
+#second_tab{
+    border-right: solid 2px rgb(151,151,151);
+}
+#recommand_container{
+    margin-left: auto;
+    margin-right: auto;
+    width: 450px;
+    text-align: left;
+    color:#fff;
+    line-height: 50px;/*行间距*/
+    /*background-color: #8B8B7A;*/
+    background-color: rgb(151,151,151);
+    margin: 20px auto;
+    display: block;
+    height: 400px;
+    padding:20px;
+    border-radius: 2px 2px 2px 2px;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+}

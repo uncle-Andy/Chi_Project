@@ -1,0 +1,135 @@
+<html  meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+<head>
+    <title>板块详情</title>
+
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <!--<script src="/js/loadingbar.js"></script>-->
+
+    <!--<link rel="stylesheet" type="text/css" href="/css/buttons.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/loadingbar.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/flat-ui.css">-->
+    <!--导航栏的css-->
+    <link rel="stylesheet" type="text/css" href="/css/navigator.css">
+    <!--<link rel="stylesheet" href="/css/window.css" type="text/css">-->
+    <link rel="stylesheet" type="text/css" href="/css/BoardDetail.css">
+    <link rel="shortcut icon" href="/image/short_cut.png">
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    <script src="/js/login/get_user.js"></script>
+    <script src="/js/BoardDetail.js" type="text/javascript" language="javascript"charset="gbk"></script>
+
+</head>
+<style>
+    .green{
+
+        color:#00CD00;
+    }
+    .red{
+
+        color:#FF0000;
+    }
+    .grey{
+        color:#CDCDB4;
+    }
+</style>
+<body>
+<!-- navigator begin -->
+<div id="nav_bar">
+    <img src="/image/duck_icon_pink.png" style="width: 73px;height: 35px;float: left;margin-top:7px;margin-left: 10px">
+    <!--<div style="font-size: 30px;float: left;color: #ffffff;margin-left: 10px;margin-top: 7px;">DUCK</div>-->
+    <ul id="nav_box">
+        <li class="nav_item">
+            <a class="nav_c" href="duck_main.html">
+                <img id= "data_icon" src="/image/data.png">
+                <label class="nav_item_name">数据</label>
+            </a>
+        </li>
+        <li class="nav_item">
+            <a class="nav_c" href="BoardList.html">
+                <img id= "distribute_icon" src="/image/distribute-horizontal-centers.png">
+                <label class="nav_item_name">分布</label>
+            </a>
+        </li>
+        <li class="nav_item">
+            <a class="nav_c" href="duck_optional.html">
+                <img id= "optional_icon" src="/image/optional_stocl.png">
+                <label class="nav_item_name">自选股</label>
+            </a>
+        </li>
+        <li class="nav_item">
+            <a class="nav_c" href="Analyse_input.html">
+                <img id= "regression_test_icon" src="/image/test.png">
+                <label class="nav_item_name">回测系统</label>
+            </a>
+        </li>
+        <li class="nav_item">
+            <a class="nav_c" onclick=handle_user();>
+                <img id= "user_icon" src="/image/user.png">
+                <label class="nav_item_name" id="navigator_user_name">用户</label>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="blank"></div>
+<!-- navigator end -->
+
+<div id="main_content_board_detail">
+    <div id="top_bar">
+        <div id="stockName"></div>
+        <div id="increase_item">
+            <img class="item_icon" src="/image/board_change_rate.png" alt="涨幅"/>
+             <div id="board_info_increase">今日板块涨幅</div>
+            <div id="rate"></div>
+        </div>
+
+        <div id="up_num_item">
+            <img class="item_icon" src="/image/board_up.png" alt="上升个数">
+            <div id="board_info_up_num">上涨</div>
+            <div id="upNum"></div>
+        </div>
+
+        <div id="down_num_item">
+            <img class="item_icon" src="/image/board_down.png" alt="下跌个数">
+            <div id="board_info_down_num">下跌</div>
+            <div id="downNum"></div>
+        </div>
+        <div id="stop_num_item">
+            <img class="item_icon" src="/image/board_no_change.png" alt="持平个数">
+            <div id="board_info_stop_num">持平</div>
+            <div id="stopNum"></div>
+        </div>
+
+    </div>
+
+
+
+        <div id="compare_chart">
+            <div id="linechart" class="linechart" style="float: left;width: 100%">
+
+                <div class="duck_gear_loading" id="duck_gear_board_compare" style="float: left;margin-left: 43%;margin-top: 150px;">
+                    <img src="/image/duck_gear_backup.gif" alt="running" class="duck_gear_icon">
+                    <div class="duck_gear_tips">走势比较加载中..</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="consist_chart">
+            <div id="treechart" class="treechart" style="float: left;width: 100%">
+
+
+            </div>
+            <div class="duck_gear_loading" id="duck_gear_board_treechart" style="float: left;margin-left: 45%;margin-top: -400px;">
+                <img src="/image/duck_gear_backup.gif" alt="running" class="duck_gear_icon">
+                <div class="duck_gear_tips">成分股加载中..</div>
+            </div>
+        </div>
+
+
+</div>
+</body>
+</html>
