@@ -180,6 +180,7 @@
      *初始化table的方法,包括样式的配置
      */
     function initTable(allStock) {
+        console.log(allStock);
         for(var i=0;i<allStock.length;i++){
             if(allStock[i].changeRate !=0)
             allStock[i].changeRate = (allStock[i].changeRate*100).toFixed(2)+"%";
@@ -207,7 +208,7 @@
                         ifHigher=0;
                         $(nTd).css('color', 'green')
                     }else{
-                        ifHigher=1
+                        ifHigher=1;
                         $(nTd).css('color', 'red')
                     }
                 }
