@@ -28,14 +28,14 @@ app.get('/user/checkIfLogin',function (req, res) {
     res.send(false);
 });
 
-/****************************************************
+/*
       _             _
   ___| |_ ___   ___| | __
  / __| __/ _ \ / __| |/ /
  \__ \ || (_) | (__|   <
  |___/\__\___/ \___|_|\_\
 
- ****************************************************/
+ */
 app.post('/Stock/getStockDataList',function (req, res) {
     res.json([
         {name:'五粮液', code:'sh100001', open:'1.01', high:'2.45', low:'0.98', close:'1.87', turnoverVol:Math.random(), changeRate:Math.random()},
@@ -59,14 +59,14 @@ app.get('/BenchMark/getBenchDataList',function (req, res) {
     ]);
 });
 
-/***************************************************
+/*
   ____  _             _    ____       _        _ _
  / ___|| |_ ___   ___| | _|  _ \  ___| |_ __ _(_) |
  \___ \| __/ _ \ / __| |/ / | | |/ _ \ __/ _` | | |
   ___) | || (_) | (__|   <| |_| |  __/ || (_| | | |
  |____/ \__\___/ \___|_|\_\____/ \___|\__\__,_|_|_|
 
- ****************************************************/
+ */
 app.get('/StockDetail/description', function (req ,res) {
     console.log(req.params);
     res.json({name:'五粮液', code:100001, listDate:{year:2005, month:1, day:10}, officeAddr:'珠江路创业大道', primeOperating:'主营业务什么都有啦', totalShares:10008273, close:1.78, changeRate:0.98});
@@ -113,7 +113,7 @@ app.post('/StockDetail/news', function (req, res) {
 
 
 
-/****************************************************
+/*
               _   _                   _
    ___  _ __ | |_(_) ___  _ __   __ _| |
   / _ \| '_ \| __| |/ _ \| '_ \ / _` | |
@@ -121,7 +121,7 @@ app.post('/StockDetail/news', function (req, res) {
   \___/| .__/ \__|_|\___/|_| |_|\__,_|_|
        |_|
 
- ****************************************************/
+ */
 /**
  * 当前股票如果已经被加到自选股中
  * 就返回出，用来确定股票详情页面
@@ -141,6 +141,59 @@ app.post('/Optional/add',function (req, res) {
 });
 
 
+app.get('/Board/getAllBoardsAndStockData',function (req, res) {
+    res.json([
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"北大荒1", code:'sh100086', changeRate:Math.random(), turnoverVol:Math.random()},
+                                                                    {name:"北大荒2", code:'sh100087', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+                                                                    {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]},
+        {boardName:'xx板块', boardChangeRate:Math.random(), stocks:[{name:"南大荒1", code:'sh100088', changeRate:Math.random(), turnoverVol:Math.random()},
+            {name:"南大荒2", code:'sh100089', changeRate:Math.random(), turnoverVol:Math.random()}]}
+    ]);
+});
+
+app.get('/Board/checkBoard', function (req, res) {
+    res.send(true);
+});
+app.get('/Board/getBoardDistribution', function (req, res) {
+   res.json();
+});
 
 
 

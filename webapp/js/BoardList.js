@@ -4,9 +4,10 @@
 var boards=[];
 var globalData;
 var ifshowDataLabel=true;
-var myRed="#EE2C2C",myGreen="#00CD66",myGrey="#8B7E66"
+var myRed="#EE2C2C",myGreen="#00CD66",myGrey="#8B7E66";
 $.getJSON('/Board/getAllBoardsAndStockData', function (data) {
     globalData=data;
+    console.log(globalData);
     initBubble();
     $("#loading").remove();
 });
@@ -40,6 +41,8 @@ function ifExist(index,num){
 }
 function  initBubble() {
     var index=[],length=globalData.length,m=0,i=0;
+    // console.error("return ");
+    // return ;
     while(i<12){
         var newNum=Math.floor(Math.random()*(length+1));
         if(ifExist(index,newNum)==0){
@@ -48,16 +51,30 @@ function  initBubble() {
         }
     }
 
+
     for(var i=0;i<index.length;i++){
-        boards[m]=({ //把板块的泡泡放进去
-            x: 20*i+Math.random()*10,
-            y: 40+Math.random()*10,
-           z:20,
-            ifStock:0,
-            name: globalData[index[i]].boardName,
-            rate:((globalData[index[i]].boardChangeRate)*100).toFixed(2),
-            color:myRed
-        });
+        console.log(index[i]);
+        //TODO 这里有问题，原来的同学在这里用了全局变量， 如果执行到这里的时候 ， globalData还是空的就会报错.....
+        //TODO 点左侧换一批按钮来刷新列表的时候， 按得太快也会因为global为空而报错...
+        //TODO 还有个原因不明的错误... 下次再fix
+        setTimeout(function () {
+
+        },3000);
+        try {
+            boards[m] = ({ //把板块的泡泡放进去
+                x: 20 * i + Math.random() * 10,
+                y: 40 + Math.random() * 10,
+                z: 20,
+                ifStock: 0,
+                name: globalData[index[i]].boardName,
+                rate: ((globalData[index[i]].boardChangeRate) * 100).toFixed(2),
+                color: myRed
+            });
+        }catch (err){
+            // console.error('-----try catch-----');
+            // console.error(globalData);
+            // console.error(index[i]);
+        }
         if(boards[m].rate<0) boards[m].color=myGreen;
         if(i<index.length/3){}
         else if(i>=index.length/3&&i<2*index.length/3){

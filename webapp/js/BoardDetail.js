@@ -136,6 +136,7 @@ function initTree(data){
     });
 }
 function initNumbers(data){
+    console.log(data);
     var stockNum=data.length;
     var upNum=0,downNum=0,stopNum=0,rate=0;
     for(var i=0;i<stockNum;i++){
