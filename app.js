@@ -51,6 +51,8 @@ app.get('/Stock/getStockDataListByTime',function (req, res) {
         {open:1.09, close:1.28, high:2.01, low:0.98, date:1482969897}]);
 });
 
+
+
 app.get('/BenchMark/getBenchDataList',function (req, res) {
     res.json([
         {name:'上证综指', code:'sh100001', open:'1.01', high:'2.45', low:'0.98', close:'1.87', turnoverVol:Math.random()},
@@ -259,6 +261,73 @@ app.get('/Board/getBoardDistribution', function (req, res) {
 });
 
 
+
+app.post('/Strategy/analyseWithFactor',function (req, res) {
+    var data = {};
+    var cumRtnVOList = [];
+    var tradeDataVOList = [];
+
+    for(var x=0;x<30;x++){
+        var item = {};
+        item.date = {year:2016, month:1, day:1};
+        item.baseValue = Math.random();
+        item.testValue = Math.random();
+        cumRtnVOList.push(item);
+    }
+
+    for(var x=0;x<30;x++){
+        var item = {};
+        item.tradeDate = {year:2016, month:1, day:1};
+        item.profit = (Math.random()>0 ? 1:-1) * Math.random()*1000;
+        var tradeDetailVOs = [];
+        for (var y=0;y<20;y++){
+            tradeDetailVOs.push({numofTrade:Math.floor(Math.random()*100), tradePrice: Math.floor(Math.random()*100)+100})
+        }
+        item.tradeDetailVOs = tradeDetailVOs;
+        tradeDataVOList.push(item);
+    }
+
+    data.cumRtnVOList = cumRtnVOList;
+    data.tradeDataVOList = tradeDataVOList;
+
+    res.json(data);
+
+});
+
+app.post('/Strategy/analyseWithSpecificStrategy', function (req, res) {
+    var data = {};
+    var cumRtnVOList = [];
+    var tradeDataVOList = [];
+
+
+    for(var x=1;x<=12;x+=2){
+        for(var y=1;y<=28;y+=4){
+            var item = {};
+            item.date = {year:2016, month:x, day:y};
+            item.baseValue = Math.random();
+            item.testValue = Math.random();
+            cumRtnVOList.push(item);
+        }
+    }
+    console.log(cumRtnVOList);
+
+    for(var x=0;x<30;x++){
+        var item = {};
+        item.tradeDate = {year:2016, month:1, day:1};
+        item.profit = (Math.random()>0.5 ? 1:-1) * Math.random()*1000;
+        var tradeDetailVOs = [];
+        for (var y=0;y<20;y++){
+            tradeDetailVOs.push({numofTrade:Math.floor(Math.random()*100), tradePrice: Math.floor(Math.random()*100)+100})
+        }
+        item.tradeDetailVOs = tradeDetailVOs;
+        tradeDataVOList.push(item);
+    }
+
+    data.cumRtnVOList = cumRtnVOList;
+    data.tradeDataVOList = tradeDataVOList;
+
+    res.json(data);
+});
 
 app.listen(PORT, function(){
     console.log("Service is online ...");

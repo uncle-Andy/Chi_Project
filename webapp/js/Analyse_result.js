@@ -219,6 +219,7 @@ function test_strategy_with_factor(json_data) {
         //     taxRate:0.001,baseCode:"000010",interval:7,start:"2015/01/01",end:"2015/06/01",vol:100},
         data:{arguments:json_data},
         success:function (data) {
+
             load_finish();
             trasaction_detail_data_all = data;
             // alert("seccess !");
