@@ -13,19 +13,19 @@ app.get('/',function (req, res) {
     res.sendFile(dir);
 });
 
-/****************************************************
+/*
   _   _ ___  ___ _ __
  | | | / __|/ _ \ '__|
  | |_| \__ \  __/ |
   \__,_|___/\___|_|
 
- ****************************************************/
+ */
 app.get('/user/getUserName',function (req, res) {
     res.send("toast");
 });
 
 app.get('/user/checkIfLogin',function (req, res) {
-    res.send(false);
+    res.send(true);
 });
 
 /*
@@ -36,7 +36,7 @@ app.get('/user/checkIfLogin',function (req, res) {
  |___/\__\___/ \___|_|\_\
 
  */
-app.post('/Stock/getStockDataList',function (req, res) {
+app.get('/Stock/getStockDataList',function (req, res) {
     res.json([
         {name:'五粮液', code:'sh100001', open:'1.01', high:'2.45', low:'0.98', close:'1.87', turnoverVol:Math.random(), changeRate:Math.random()},
         {name:'六粮液', code:'sh100002', open:'1.02', high:'2.46', low:'0.99', close:'1.88', turnoverVol:Math.random(), changeRate:Math.random()},
@@ -58,6 +58,21 @@ app.get('/BenchMark/getBenchDataList',function (req, res) {
 
     ]);
 });
+
+app.get('/BenchMark/getBenchList', function (req, res) {
+    var data = [];
+
+    for (var x=0;x<5;x++){
+        var data_item = {};
+        var random_name = '上证'+Math.random().toString().substr(3,7);
+        var random_code = 'sh' + (Math.floor(Math.random()*10000)+10000);
+        data_item.name = random_name;
+        data_item.code = random_code;
+    }
+    res.json(data);
+});
+
+// app.get('/Stock/getStockDataList')
 
 /*
   ____  _             _    ____       _        _ _
@@ -140,6 +155,34 @@ app.post('/Optional/add',function (req, res) {
     res.send(false);
 });
 
+app.post('/Optional/get', function (req, res) {
+    res.json([
+        {name:'五粮液', code:'sh100001', open:'1.01', high:'2.45', low:'0.98', close:'1.87', turnoverVol:Math.random(), changeRate:Math.random()},
+        {name:'六粮液', code:'sh100002', open:'1.02', high:'2.46', low:'0.99', close:'1.88', turnoverVol:Math.random(), changeRate:Math.random()},
+        {name:'七粮液', code:'sh100003', open:'1.03', high:'2.47', low:'0.90', close:'1.84', turnoverVol:Math.random(), changeRate:Math.random()}
+    ]);
+});
+
+app.post('/Optional/getRegionDistribution', function (req, res) {
+    var data = {};
+    for ( var x=0;x<10;x++ ){
+        var random_name = Math.random().toString(36).substr(2,5).toUpperCase() + "省";
+        var random_value = Math.floor(Math.random()*10);
+        data[random_name] = random_value;
+    }
+
+    res.send(data);
+});
+
+app.post('/Optional/getBoardDistribution', function (req, res) {
+    var data = {};
+    for ( var x=0;x<10;x++ ){
+        var random_name = Math.random().toString(36).substr(2,5).toUpperCase() + "行业";
+        var random_value = Math.floor(Math.random()*10);
+        data[random_name] = random_value;
+    }
+    res.send(data);
+});
 
 app.get('/Board/getAllBoardsAndStockData',function (req, res) {
     res.json([
@@ -191,8 +234,28 @@ app.get('/Board/getAllBoardsAndStockData',function (req, res) {
 app.get('/Board/checkBoard', function (req, res) {
     res.send(true);
 });
+
+app.get('/Board/getCompareData', function (req, res) {
+
+   res.json([
+       {date:{year:'2016',month:'1',day:'2'},boardData:Math.random(), huShen300Data:Math.random()},
+       {date:{year:'2016',month:'1',day:'3'},boardData:Math.random(), huShen300Data:Math.random()},
+       {date:{year:'2016',month:'1',day:'4'},boardData:Math.random(), huShen300Data:Math.random()},
+       {date:{year:'2016',month:'1',day:'5'},boardData:Math.random(), huShen300Data:Math.random()},
+       {date:{year:'2016',month:'1',day:'6'},boardData:Math.random(), huShen300Data:Math.random()}
+   ]);
+});
+
 app.get('/Board/getBoardDistribution', function (req, res) {
-   res.json();
+
+    res.json([
+        {code:Math.random().toString(36).substr(0,6),stockName:'股票1',open:Math.random(),turnoverVol:Math.random(),changeRate:Math.random(), weight:Math.random()},
+        {code:Math.random().toString(36).substr(0,6),stockName:'股票2',open:Math.random(),turnoverVol:Math.random(),changeRate:Math.random(), weight:Math.random()},
+        {code:Math.random().toString(36).substr(0,6),stockName:'股票3',open:Math.random(),turnoverVol:Math.random(),changeRate:Math.random(), weight:Math.random()},
+        {code:Math.random().toString(36).substr(0,6),stockName:'股票4',open:Math.random(),turnoverVol:Math.random(),changeRate:Math.random(), weight:Math.random()},
+        {code:Math.random().toString(36).substr(0,6),stockName:'股票5',open:Math.random(),turnoverVol:Math.random(),changeRate:Math.random(), weight:Math.random()},
+        {code:Math.random().toString(36).substr(0,6),stockName:'股票6',open:Math.random(),turnoverVol:Math.random(),changeRate:Math.random(), weight:Math.random()}
+        ]);
 });
 
 

@@ -685,7 +685,7 @@ function setFactor_moneyValue() {
 $(document).ready(function () {
     $("ul").idTabs();
 
-    $.getJSON('/BenchMark/getBenchList', function (data) {
+    $.getJSON('/BenchMark/getBenchDataList', function (data) {
         initBaseCode(data);
     });
     initChosenList();
@@ -695,6 +695,7 @@ $(document).ready(function () {
         initTable_all();
         $("#loading").hide();
     })
+
 
 
 });
