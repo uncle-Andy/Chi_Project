@@ -477,9 +477,9 @@
                 var dataset = [];
                 for(var i=0;i<data.length;i++){
 //                    alert(data[i].date.year);
-                    result = data[i].date.year+"-"+data[i].date.month+"-"+data[i].date.day;
-                    date = new Date(result);
-                    dataset.push([date.getTime(),data[i].value]);
+//                    result = data[i].date.year+"-"+data[i].date.month+"-"+data[i].date.day;
+//                    date = new Date(result);
+                    dataset.push([data[i].date,data[i].value]);
 //                    alert(result);
                 }
                 // Create the chart

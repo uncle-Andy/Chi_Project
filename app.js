@@ -3,10 +3,46 @@
  */
 
 const express = require('express');
+const Mock = require('mockjs');
 var app = express();
 const PORT = 3000;
 
+console.log("================================");
+// var test_data = Mock.mock(
+//     {
+//         "data|10": [
+//             {
+//                 "name": "@ctitle(3, 5)",
+//                 "code|100000-999999": 100,
+//                 "high|70-100.1-2": 1,
+//                 "low|65-70.1-2": 1,
+//                 "open|65-70": 1,
+//                 "close|65-70": 1
+//             }
+//         ]
+//     }
+// );
+var test_data =Mock.mock(
+    {
+        "array|10": [
+            {
+                "number|+86400000": 1399260649490
+            }
+        ]
+    }
+);
+console.log(test_data);
+console.log("================================");
+
+
 app.use(express.static('webapp'));
+
+app.get('/mock', function (req, res) {
+    var data = Mock.mock({
+        "number|1-100":100
+    });
+    res.json(data);
+});
 
 app.get('/',function (req, res) {
     var dir = __dirname + '/webapp/html/duck_main.html';
@@ -37,18 +73,51 @@ app.get('/user/checkIfLogin',function (req, res) {
 
  */
 app.get('/Stock/getStockDataList',function (req, res) {
-    res.json([
-        {name:'五粮液', code:'sh100001', open:'1.01', high:'2.45', low:'0.98', close:'1.87', turnoverVol:Math.random(), changeRate:Math.random()},
-        {name:'六粮液', code:'sh100002', open:'1.02', high:'2.46', low:'0.99', close:'1.88', turnoverVol:Math.random(), changeRate:Math.random()},
-        {name:'七粮液', code:'sh100003', open:'1.03', high:'2.47', low:'0.90', close:'1.84', turnoverVol:Math.random(), changeRate:Math.random()}
-        ]);
+    // res.json([
+    //     {name:'五粮液', code:'sh100001', open:'1.01', high:'2.45', low:'0.98', close:'1.87', turnoverVol:Math.random(), changeRate:Math.random()},
+    //     {name:'六粮液', code:'sh100002', open:'1.02', high:'2.46', low:'0.99', close:'1.88', turnoverVol:Math.random(), changeRate:Math.random()},
+    //     {name:'七粮液', code:'sh100003', open:'1.03', high:'2.47', low:'0.90', close:'1.84', turnoverVol:Math.random(), changeRate:Math.random()}
+    //     ]);
+    var data = Mock.mock(
+        {
+            "array|1000": [
+                {
+                    "name": "@ctitle(3, 5)",
+                    "code|100000-999999": 100,
+                    "high|70-100.1-2": 1,
+                    "low|65-70.1-2":1,
+                    "open|65-70": 1,
+                    "close|65-70": 1,
+                    "turnoverVol|0.1-4":1,
+                    "changeRate|0.1-4":1
+                }
+            ]
+        }
+    );
+    res.json(data.array);
 });
 
 app.get('/Stock/getStockDataListByTime',function (req, res) {
-    res.json([
-        {open:1.09, close:1.28, high:2.01, low:0.98, date:1482769897},
-        {open:1.09, close:1.28, high:2.01, low:0.98, date:1482869897},
-        {open:1.09, close:1.28, high:2.01, low:0.98, date:1482969897}]);
+    // res.json([
+    //     {open:1.09, close:1.28, high:2.01, low:0.98, date:1482769897},
+    //     {open:1.09, close:1.28, high:2.01, low:0.98, date:1482869897},
+    //     {open:1.09, close:1.28, high:2.01, low:0.98, date:1482969897}]);
+    var data = Mock.mock(
+        {
+            "array|100": [
+                {
+                    "open|60-69.2": 1,
+                    "close|60-69.2": 1,
+                    "high|70-75.2": 1,
+                    "low|60-65.2": 1,
+                    "date|+86400000": 1399260649490,
+                    "turnoverVol|100000-5000000":1
+                }
+            ]
+        }
+    );
+    console.log(data);
+    res.json(data.array);
 });
 
 
@@ -91,11 +160,22 @@ app.get('/StockDetail/description', function (req ,res) {
 
 app.get('/StockDetail/getFactorChange', function (req ,res) {
 
-    res.json([
-        {date:{year:2005, month:1, day:10}, value:Math.random()},
-        {date:{year:2005, month:1, day:15}, value:Math.random()},
-        {date:{year:2005, month:1, day:20}, value:Math.random()},
-        {date:{year:2005, month:1, day:25}, value:Math.random()}]);
+    // res.json([
+    //     {date:{year:2005, month:1, day:10}, value:Math.random()},
+    //     {date:{year:2005, month:1, day:15}, value:Math.random()},
+    //     {date:{year:2005, month:1, day:20}, value:Math.random()},
+    //     {date:{year:2005, month:1, day:25}, value:Math.random()}]);
+
+    var data = Mock.mock({
+        "array|1000":[
+            {
+                "date|+86400000": 1399260649490,
+                "value|0.3":1
+            }
+        ]
+    });
+
+    res.json(data.array);
 });
 
 app.post('/StockDetail/evaluation', function (req ,res) {
@@ -158,22 +238,47 @@ app.post('/Optional/add',function (req, res) {
 });
 
 app.post('/Optional/get', function (req, res) {
-    res.json([
-        {name:'五粮液', code:'sh100001', open:'1.01', high:'2.45', low:'0.98', close:'1.87', turnoverVol:Math.random(), changeRate:Math.random()},
-        {name:'六粮液', code:'sh100002', open:'1.02', high:'2.46', low:'0.99', close:'1.88', turnoverVol:Math.random(), changeRate:Math.random()},
-        {name:'七粮液', code:'sh100003', open:'1.03', high:'2.47', low:'0.90', close:'1.84', turnoverVol:Math.random(), changeRate:Math.random()}
-    ]);
+    // res.json([
+    //     {name:'五粮液', code:'sh100001', open:'1.01', high:'2.45', low:'0.98', close:'1.87', turnoverVol:Math.random(), changeRate:Math.random()},
+    //     {name:'六粮液', code:'sh100002', open:'1.02', high:'2.46', low:'0.99', close:'1.88', turnoverVol:Math.random(), changeRate:Math.random()},
+    //     {name:'七粮液', code:'sh100003', open:'1.03', high:'2.47', low:'0.90', close:'1.84', turnoverVol:Math.random(), changeRate:Math.random()}
+    // ]);
+    var data = Mock.mock(
+        {
+            "array|87": [
+                {
+                    "name": "@ctitle(3, 5)",
+                    "code|100000-999999": 100,
+                    "high|70-100.1-2": 1,
+                    "low|65-70.1-2":1,
+                    "open|65-70": 1,
+                    "close|65-70": 1,
+                    "turnoverVol|0.1-4":1,
+                    "changeRate|0.1-4":1
+                }
+            ]
+        }
+    );
+    res.json(data.array);
 });
 
 app.post('/Optional/getRegionDistribution', function (req, res) {
-    var data = {};
-    for ( var x=0;x<10;x++ ){
-        var random_name = Math.random().toString(36).substr(2,5).toUpperCase() + "省";
-        var random_value = Math.floor(Math.random()*10);
-        data[random_name] = random_value;
-    }
+    // var data = {};
+    // for ( var x=0;x<10;x++ ){
+    //     var random_name = Math.random().toString(36).substr(2,5).toUpperCase() + "省";
+    //     var random_value = Math.floor(Math.random()*10);
+    //     data[random_name] = random_value;
+    // }
 
-    res.send(data);
+    var raw_data = Mock.mock({
+        "北京市|1-10":1,
+        "天津市|1-10":1,
+        "云南省|1-10":1,
+        "广东省|1-10":1,
+        "四川省|1-10":1
+    });
+
+    res.send(raw_data);
 });
 
 app.post('/Optional/getBoardDistribution', function (req, res) {
