@@ -22,17 +22,17 @@ console.log("================================");
 //         ]
 //     }
 // );
-var test_data =Mock.mock(
-    {
-        "array|10": [
-            {
-                "number|+86400000": 1399260649490
-            }
-        ]
-    }
-);
-console.log(test_data);
-console.log("================================");
+// var test_data =Mock.mock(
+//     {
+//         "array|10": [
+//             {
+//                 "number|+86400000": 1399260649490
+//             }
+//         ]
+//     }
+// );
+// console.log(test_data);
+// console.log("================================");
 
 
 app.use(express.static('webapp'));
@@ -109,18 +109,16 @@ app.get('/Stock/getStockDataListByTime',function (req, res) {
                     "open|60-69.2": 1,
                     "close|60-69.2": 1,
                     "high|70-75.2": 1,
-                    "low|60-65.2": 1,
+                    "low|55-59.2": 1,
                     "date|+86400000": 1399260649490,
                     "turnoverVol|100000-5000000":1
                 }
             ]
         }
     );
-    console.log(data);
+    // console.log(data);
     res.json(data.array);
 });
-
-
 
 app.get('/BenchMark/getBenchDataList',function (req, res) {
     res.json([
@@ -180,7 +178,11 @@ app.get('/StockDetail/getFactorChange', function (req ,res) {
 
 app.post('/StockDetail/evaluation', function (req ,res) {
 
-    res.json({mark:Math.floor(Math.random()*30)+20, suggestion:"这是一条建议", analysis:"这是一条分析"});
+    var mock = Mock.mock({
+        "sugestion":"@cparagraph(3,5)",
+        "analysis":"@cparagraph(6,10)"
+    });
+    res.json({mark:Math.floor(Math.random()*30)+20, suggestion:"建议："+mock.sugestion, analysis:"分析："+mock.analysis});
 });
 
 /**
@@ -200,10 +202,23 @@ app.get('/StockDetail/getMostUsefulFactors', function (req ,res) {
 });
 
 app.post('/StockDetail/news', function (req, res) {
-   res.json([
-       {title:'About Duckpp', publishDate:'2016-12-27', summary:'Duckpp要搞个大新闻'},
-       {title:'uncle-Andy', publishDate:'2016-12-27', summary:'uncle-Andy要搞个大新闻'}
-   ]);
+   // res.json([
+   //     {title:'About Duckpp', publishDate:'2016-12-27', summary:'Duckpp要搞个大新闻'},
+   //     {title:'uncle-Andy', publishDate:'2016-12-27', summary:'uncle-Andy要搞个大新闻'}
+   // ]);
+
+    var data = Mock.mock({
+        "array|5-20":[
+            {
+                "title":"@ctitle(5,10)",
+                "publishDate":"@date",
+                "summary":"@cparagraph(3,10)"
+            }
+        ]
+    });
+
+    // console.log(data);
+    res.json(data.array);
 });
 
 
@@ -338,6 +353,15 @@ app.get('/Board/getAllBoardsAndStockData',function (req, res) {
     ]);
 });
 
+/*
+  ____                      _
+ | __ )  ___   __ _ _ __ __| |
+ |  _ \ / _ \ / _` | '__/ _` |
+ | |_) | (_) | (_| | | | (_| |
+ |____/ \___/ \__,_|_|  \__,_|
+
+ */
+
 app.get('/Board/checkBoard', function (req, res) {
     res.send(true);
 });
@@ -366,6 +390,15 @@ app.get('/Board/getBoardDistribution', function (req, res) {
 });
 
 
+/*
+  ____  _             _
+ / ___|| |_ _ __ __ _| |_ ___  __ _ _   _
+ \___ \| __| '__/ _` | __/ _ \/ _` | | | |
+  ___) | |_| | | (_| | ||  __/ (_| | |_| |
+ |____/ \__|_|  \__,_|\__\___|\__, |\__, |
+                              |___/ |___/
+
+ */
 
 app.post('/Strategy/analyseWithFactor',function (req, res) {
     var data = {};
@@ -395,7 +428,29 @@ app.post('/Strategy/analyseWithFactor',function (req, res) {
     data.cumRtnVOList = cumRtnVOList;
     data.tradeDataVOList = tradeDataVOList;
 
-    res.json(data);
+    var mock_data = Mock.mock({
+        "cumRtnVOList|30":[
+            {
+                "date|+86400000": 1399260649490,
+                "baseValue|0.4":1,
+                "testValue|0.4":1
+            }
+        ],
+        "tradeDataVOList|30":[
+            {
+                "tradeDate|+86400000": 1399260649490,
+                "profit|100-150.2":1,
+                "tradeDetailVOs|30":[
+                    {
+                        "numofTrade|80-100":1,
+                        "tradePrice|1-10":1
+                    }
+                ]
+            }
+        ]
+    });
+    console.log(mock_data);
+    res.json(mock_data);
 
 });
 
@@ -414,7 +469,7 @@ app.post('/Strategy/analyseWithSpecificStrategy', function (req, res) {
             cumRtnVOList.push(item);
         }
     }
-    console.log(cumRtnVOList);
+    // console.log(cumRtnVOList);
 
     for(var x=0;x<30;x++){
         var item = {};
@@ -431,8 +486,32 @@ app.post('/Strategy/analyseWithSpecificStrategy', function (req, res) {
     data.cumRtnVOList = cumRtnVOList;
     data.tradeDataVOList = tradeDataVOList;
 
+    var mock_data = Mock.mock({
+        "cumRtnVOList|30":[
+            {
+                "date":"date",
+                "baseValue|0.4":1,
+                "testValue|0.4":1
+            }
+        ],
+        "tradeDataVOList|30":[
+            {
+                "tradeDate":"date",
+                "profit:100-150.2":1,
+                "tradeDetailVOs|30":[
+                    {
+                        "numofTrade|80-100":1,
+                        "tradePrice|1-10":1
+                    }
+                ]
+            }
+        ]
+    });
+    console.log(mock_data);
     res.json(data);
 });
+
+
 
 app.listen(PORT, function(){
     console.log("Service is online ...");

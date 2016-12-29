@@ -230,9 +230,9 @@ function test_strategy_with_factor(json_data) {
             var compare_test = [];
             for(var i=0;i<cumRtnVOList.length;i++){
                 // alert(cumRtnVOList[i].baseValue);
-                var str_date = cumRtnVOList[i].date.year+"-"+cumRtnVOList[i].date.month+"-"+cumRtnVOList[i].date.day;
+                // var str_date = cumRtnVOList[i].date.year+"-"+cumRtnVOList[i].date.month+"-"+cumRtnVOList[i].date.day;
                 // alert(str_date);
-                var date = new Date(str_date).getTime();
+                var date = cumRtnVOList[i].date;
                 compare_base.push([date,cumRtnVOList[i].baseValue]);
                 compare_test.push([date,cumRtnVOList[i].testValue]);
                 // alert("base "+compare_base+"test "+compare_test);
@@ -251,7 +251,7 @@ function test_strategy_with_factor(json_data) {
                     trade_num += trade_data[i].tradeDetailVOs[j].numofTrade;
                     trade_total += (trade_data[i].tradeDetailVOs[j].tradePrice * trade_data[i].tradeDetailVOs[j].numofTrade);
                 }
-                trade_table_data_item.date=trade_data[i].tradeDate.year+"-"+trade_data[i].tradeDate.month+"-"+trade_data[i].tradeDate.day;
+                trade_table_data_item.date=trade_data[i].tradeDate;
                 // alert("date: "+trade_table_data_item.date);
                 trade_table_data_item.trade_amount = (trade_total).toFixed(2);
                 trade_table_data_item.trade_num = trade_num;
@@ -493,8 +493,9 @@ function init_transaction_diy_table(data) {
             detail_data_item = new Object();
             var date_data = trasaction_detail_data_all.tradeDataVOList[selected_row].tradeDate;
             // alert(date_data.year);
-            detail_data_item.date = date_data.year+"-"+date_data.month+"-"+date_data.day;
-            detail_data_item.name = detail_data[i].codeName;
+            // detail_data_item.date = date_data.year+"-"+date_data.month+"-"+date_data.day;
+                detail_data_item.date = date_data
+                detail_data_item.name = detail_data[i].codeName;
             if(detail_data[i].buyOrSell==false){
                 detail_data_item.statu = "卖出";
             }else{
