@@ -539,7 +539,10 @@ app.get('/Strategy/getStocksFactorJudgement', function (req, res) {
             }
         ]
     });
-    res.json(data);
+    setTimeout(function () {
+        res.json(data);
+    }, 2000);
+
 });
 
 
