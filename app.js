@@ -449,7 +449,7 @@ app.post('/Strategy/analyseWithFactor',function (req, res) {
             }
         ]
     });
-    console.log(mock_data);
+    // console.log(mock_data);
     res.json(mock_data);
 
 });
@@ -489,15 +489,15 @@ app.post('/Strategy/analyseWithSpecificStrategy', function (req, res) {
     var mock_data = Mock.mock({
         "cumRtnVOList|30":[
             {
-                "date":"date",
+                "date|+86400000": 1399260649490,
                 "baseValue|0.4":1,
                 "testValue|0.4":1
             }
         ],
         "tradeDataVOList|30":[
             {
-                "tradeDate":"date",
-                "profit:100-150.2":1,
+                "tradeDate|+86400000": 1399260649490,
+                "profit|100-150.2":1,
                 "tradeDetailVOs|30":[
                     {
                         "numofTrade|80-100":1,
@@ -507,12 +507,45 @@ app.post('/Strategy/analyseWithSpecificStrategy', function (req, res) {
             }
         ]
     });
-    console.log(mock_data);
+    // console.log(mock_data);
+    res.json(mock_data);
+});
+
+app.get('/Strategy/getStocksFactorJudgement', function (req, res) {
+
+    var data = Mock.mock({
+        "sortRankIC|6":[
+            {
+                "key":"@string(2,4)",
+                "value|0.3":1
+            }
+        ],
+        "sortRankIR|6":[
+            {
+                "key":"@string(2,4)",
+                "value|0.3":1
+            }
+        ],
+        "sortRankWinRate|6":[
+            {
+                "key":"@string(2,4)",
+                "value|0.3":1
+            }
+        ],
+        "sortAvgProfit|6":[
+            {
+                "key":"@string(2,4)",
+                "value|0.3":1
+            }
+        ]
+    });
     res.json(data);
 });
 
 
-
+function getName() {
+    return "PC";
+}
 app.listen(PORT, function(){
     console.log("Service is online ...");
     console.log("Listening on port "+PORT+" ...");

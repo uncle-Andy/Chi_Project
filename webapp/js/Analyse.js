@@ -112,7 +112,7 @@ function factorAnalyse(){//分析因子
         return;
     }
     document.getElementById("factor_analyse_info_label").innerHTML="计算中。。";
-    $.getJSON('/Strategy/getStocksFactorJudgment?'+'codes='+codes+'&start='+startT+'&end='+endT
+    $.getJSON('/Strategy/getStocksFactorJudgement?'+'codes='+codes+'&start='+startT+'&end='+endT
         +'&baseBench='+basecode,
         function (data) {
             $("#allStocksDiv").hide();
@@ -248,21 +248,28 @@ function initChosenList(){
     } );
 
 }
+function ASC(a, b) {
+    return a[1] - b[1];
+}
 function init_bar(data) {
     $("#barCharts").show();
     var ICdata=[],IRdata=[],WinRatedata=[],AvgProfitdata=[];
     for(var x in data.sortRankIC){
-        ICdata.push([x,data.sortRankIC[x]]);
+        ICdata.push([data.sortRankIC[x].key,data.sortRankIC[x].value]);
     }
+    ICdata.sort(ASC);
     for(var x in data.sortRankWinRate){
-        WinRatedata.push([x,data.sortRankWinRate[x]]);
+        WinRatedata.push([data.sortRankWinRate[x].key,data.sortRankWinRate[x].value]);
     }
+    WinRatedata.sort(ASC);
     for(var x in data.sortRankIR){
-        IRdata.push([x,data.sortRankIR[x]]);
+        IRdata.push([data.sortRankIR[x].key,data.sortRankIR[x].value]);
     }
+    IRdata.sort(ASC);
     for(var x in data.sortAvgProfit){
-        AvgProfitdata.push([x,data.sortAvgProfit[x]]);
+        AvgProfitdata.push([data.sortAvgProfit[x].key,data.sortAvgProfit[x].value]);
     }
+    AvgProfitdata.sort(ASC);
     $('#chart1').highcharts({
         chart: {
             type: 'column',
